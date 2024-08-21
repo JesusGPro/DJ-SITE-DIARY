@@ -1,0 +1,39 @@
+{% extends 'app/base.html' %}
+
+{% block title %}Searching records with words{% endblock %}
+
+{% block content %}
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Create a Search</h1>
+            <p>It will appear only the fields that contains all the words, you can introduce 1, 2 or 3 words.</p>
+            <p>It is not case-sensitive for the words to be searched or for the words to be found in the database.</p>
+            <form method="post">
+                {% csrf_token %}
+                <div class="field">
+                    <label class="label">Word 1</label>
+                    <div class="control">
+                        {{ form.word_1 }}
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Word 2</label>
+                    <div class="control">
+                        {{ form.word_2 }}
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Word 3</label>
+                    <div class="control">
+                        {{ form.word_3 }}
+                    </div>
+                </div>
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button class="button is-link" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'app/base.html' %}
+{% block title %}Showing results{% endblock %}
+{% block content %}
+    
+<h1>Search Results</h1>
+
+    {% for record in records %}
+    <ul>
+        <li>Id: {{record.id}}</li>   
+        <li>Title: {{ record.title }}</li>   
+        <li>Content: {{ record.content }}</li>
+        <li>Date/Time: {{ record.date_time }}</li>
+    </ul>
+    {% empty %}
+        <li>No results found</li>
+    {% endfor %}
+
+
+{% endblock %}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+  <title>L7 Layout</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.min.js"></script>
+  <script src="https://unpkg.com/konva@9/konva.min.js"></script>
+  <style>
+    #map {
+      position: relative;
+    }
+    #canvas-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .go_home{
+        font-size: 80px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+      <div id="map">
+        <div>
+        <img src="{% static 'app/media/L7_layout_complete.jpg' %}" alt="L7 Layout">
+        <div id="canvas-container"></div>
+        </div>
+      </div>
+      <a href="{% url 'home' %}" class="go_home">Click here to get Home #############################################################################################  Home==>></a>
+      {% comment %} <button class="button is-large is-primary is-fullwidth" onclick="location.href='{% url 'home' %}'">
+        <span class="icon is-large">
+          <i class="fas fa-home"></i>
+        </span>
+        <span>Go Home</span>
+      </button> {% endcomment %}
+  </div>
+  <script src="{% static 'app/scripts.js' %}"></script>
+</body>
+</html>

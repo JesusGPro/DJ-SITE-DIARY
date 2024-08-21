@@ -1,0 +1,38 @@
+{% extends "app/base.html" %}
+{% block title %}List of Records{% endblock %}
+{% block content %}
+
+    <h1 style="color: #d64161;" class="title">Records</h1>
+    {% if records %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <table class="table is-striped is-fullwidth">
+        {% for record in records %}
+        <tr>
+            <td>
+                {% if request.user.is_superuser %}
+                <label class="checkbox">
+                    <input type="checkbox" name="record_keys" value="{{ record.id }}"/>
+                </label>
+                {% endif %}
+                <a href="{% url 'edit_record' record.id %}">
+                    Id: {{ record.id }} , 
+                    Title: {{ record.title }} , 
+                    {% if record.content %} Content: {{ record.content }} {% endif %} , 
+                    {% if record.date_recorded %} Recorded at: {{ record.date_recorded }} {% endif %}
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+        </table>
+
+        {% if request.user.is_superuser %}
+        <div class="field is-grouped">
+            <div class="control">
+            <button class="button is-danger is-small" formaction="{% url 'delete_records' %}">Delete</button>
+            </div>
+        </div>
+        {% endif %}
+    </form>
+    {% endif %}
+{% endblock %}

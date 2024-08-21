@@ -1,0 +1,30 @@
+{% extends 'app/base.html' %}
+{% block title %}Adding record{% endblock %}
+{% block content %}
+    <h1 class="title">Record</h1>
+    <h1>Create Diary Entry</h1>
+    <form method="post">
+      {% csrf_token %}
+      <div class="field">
+        <label class="label">Title</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="year/month/date" name="title">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Record content</label>
+        <div class="control">
+          <textarea class="textarea" placeholder="Write here your news" name="content"></textarea>
+        </div>
+      </div>      
+      <button class="button is-success" type="submit">Create</button>
+    </form>
+    {% comment %} <div class="field is-grouped">
+      <div class="control">
+        <br>
+        <a class="button is-primary is-outlined is-small"
+           href="{{ request.path }}/edit">Edit</a>
+      </div>
+    </div> {% endcomment %}
+
+{% endblock %}
