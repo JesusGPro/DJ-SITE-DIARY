@@ -1,0 +1,27 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Showing results{% endblock %}
+{% block content %}
+<style>
+    body {
+    background-image: url("{% static 'app/media/wp5.jpg' %}");
+    background-size: cover;
+    background-repeat: no-repeat;
+    }
+</style>
+<h1>Chat Search Results</h1>
+
+    {% for record in records %}
+    <div class="control">
+        <ul class="chat-log" id="chat-log" style="list-style: none;">
+            <li class="chat-message.even">Id: {{record.id}}</li>   
+            <li class="chat-message.odd">User: {{ record.user }}</li>   
+            <li class="chat-message.even">Message: {{ record.message }}</li>
+            <li class="chat-message.odd">Created at: {{ record.created_at }}</li>
+        </ul>
+    {% empty %}
+        <li class="chat-message" style="list-style: none;">No results found</li>
+    {% endfor %}
+    </div>
+
+{% endblock %}

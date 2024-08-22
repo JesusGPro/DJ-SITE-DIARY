@@ -1,6 +1,13 @@
 {% extends 'app/base.html' %}
 {% load static %}
 {% block content %}
+<style>
+    body {
+    background-image: url("{% static 'app/media/wp2.jpg' %}");
+    background-size: cover;
+    background-repeat: no-repeat;
+    }
+</style>
 <h1 style="color: #d64161;">My Site Diary</h1>
 <p>Have a nice {{ day }}!</p>
 <img src="{% static 'app/media/L7_key.jpg' %}" alt="L7 Layout"> 

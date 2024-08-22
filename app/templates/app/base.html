@@ -37,21 +37,24 @@
             <a class="button is-success" href="{% url 'search_records' %}">3 words Search</a>
           </span>
           <span class="navbar-item">
-            <a class="button is-success" href="{% url 'export_to_excel' %}">Export to excel</a>
+            <a class="button is-warning" href="{% url 'export_to_excel' %}">Export to excel</a>
           </span>
           <span class="navbar-item">
             <a class="button is-success" href="{% url 'boreholes' %}">Boreholes</a>
           </span>
           <span class="navbar-item">
+            <a class="button is-info" href="{% url 'chat_view' %}">Chat</a>
+          </span>
+          <span class="navbar-item">
         </div>
         <div class="field has-addons" style="padding-top: 8px;">
           <div class="control">
-            <form method="post" action="">
+            <form method="post" action="{% url 'search_chat' %}">
                 {% csrf_token %}
-                <input class="input" type="search" placeholder="Search" aria-label="Search" name="searched">
+                <input class="input" type="search" placeholder="Search" aria-label="Search" name="word">
           </div>
           <div class="control">
-                <button class="button is-info" type="submit">Search</button>
+                <button class="button is-info" type="submit" >Search in Chat</button>
           </div>  
             </form>
         </div>
@@ -59,9 +62,11 @@
     </header>
 
     <main>
-      {% for message in messages %}
-        <div class="notification is-info">{{ message }}</div>
-      {% endfor %}
+      {% if not request.chat_page %}
+        {% for message in messages %}
+          <div class="notification is-info">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
       <section class="section">
         <div class="content">
           {% block content %}{% endblock %}

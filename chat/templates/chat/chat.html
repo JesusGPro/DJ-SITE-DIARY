@@ -1,0 +1,76 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+    <style>
+        body {
+        background-image: url("{% static 'app/media/wp5.jpg' %}");
+        background-size: cover;
+        background-repeat: no-repeat;
+        }
+    </style>
+  <section class="section">
+    <div class="container">
+      <h1 class="title">Chat</h1>
+      <form method="post" id="chat-form">
+        {% csrf_token %}
+        <div class="field">
+          <div class="control">
+            {{ form.message|add_class:"input"|attr:"placeholder:Type your message" }}
+          </div>
+        </div>
+        <button type="submit" class="button is-primary">Send</button>
+      </form>
+      <ul class="chat-log" id="chat-log" style="list-style: none;">
+        {% for message in messages %}
+          <li class="chat-message {% if forloop.counter0|divisibleby:2 %}even{% else %}odd{% endif %}">
+            <span class="username">{{ message.user.username }}</span>
+            <span class="message">{{ message.message }}</span>
+          </li>
+        {% empty %}
+          <li class="chat-message">No messages yet.</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+
+  <script>
+    function refreshChatLog() {
+      window.location.reload();
+    }
+  
+    setInterval(refreshChatLog, 60000); // Refresh every 20 seconds
+  </script>
+
+  <style>
+    .chat-log {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .chat-message {
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .chat-message.even {
+      background-color: #f0f0f0; /* very light gray */
+    }
+
+    .chat-message.odd {
+      background-color: #c6efce; /* very light green */
+    }
+
+    .username {
+      font-weight: bold;
+    }
+    .container {
+      border-radius: 5px; /* soften the corners */
+      padding: 20px; /* add some padding for better look */
+      background-color: #fff; /* add a white background */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* add a subtle shadow */
+    }
+  </style>
+{% endblock %}

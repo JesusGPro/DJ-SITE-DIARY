@@ -39,7 +39,7 @@ def edit_record(request, pk):
     return render(request, 'app/record_edit.html', {'form': form})
 
 def records_list(request):
-    records = SiteDiary.objects.all()
+    records = SiteDiary.objects.all().order_by('-date_time')
     return render(request, 'app/records_list.html', {'records': records})
 
 
@@ -116,3 +116,4 @@ def export_to_excel(request):
 
 def boreholes(request):
     return render(request, "app/boreholes.html")
+
