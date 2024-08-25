@@ -1,0 +1,62 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block content %}
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container has-text-centered">
+          <div class="column is-4 is-offset-4">
+            <h3 class="title"  style="color: #d64161;">Login</h3>
+            <img src="{% static 'app/media/AlBawani.jpg' %}" alt="L7 Layout">
+            <div class="box">
+              <form action="" method="post">
+                {% csrf_token %}
+
+                <div class="field">
+                  <label class="label">Username</label>
+                  <div class="control">
+                    <input type="text" name="username" class="input is-large" {% if form.username.value %} value="{{ form.username.value }}"{% endif %} {% for error in form.username.errors %}class="is-danger"{% endfor %}>
+                  </div>
+                  {% if form.username.errors %}
+                    <p class="help has-background-warning">
+                      {{ form.username.errors|join:", " }}
+                    </p>
+                  {% endif %}
+                </div>
+
+                <div class="field">
+                  <label class="label">Password</label>
+                  <div class="control">
+                    <input type="password" name="password" class="input is-large" {% if form.password.value %} value="{{ form.password.value }}"{% endif %} {% for error in form.password.errors %}class="is-danger"{% endfor %}>
+                  </div>
+                  {% if form.password.errors %}
+                    <p class="help has-background-warning">
+                      {{ form.password.errors|join:", " }}
+                    </p>
+                  {% endif %}
+                </div>
+                <button id="login" class="button is-block is-info is-large is-fullwidth">
+                  Login
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script>
+      const loginBtn = document.getElementById('login');
+  
+      loginBtn.addEventListener('mouseover', () => {
+        loginBtn.style.backgroundColor = '#b72ed9';
+        loginBtn.style.borderColor = '#2e6da4';
+        loginBtn.style.color = '#ffffff';
+      });
+  
+      loginBtn.addEventListener('mouseout', () => {
+        loginBtn.style.backgroundColor = ''; // reset to original color
+        loginBtn.style.borderColor = ''; // reset to original color
+        loginBtn.style.color = ''; // reset to original color
+      });
+    </script>
+{% endblock %}

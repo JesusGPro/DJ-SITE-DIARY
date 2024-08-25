@@ -1,0 +1,13 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+  <section class="section">
+    <div class="container">
+      <div class="notification is-danger">
+        <h1 class="title">Error</h1>
+        <p>{{ error }}</p>
+      </div>
+      <a href="{% url 'chat_view' %}" class="button is-primary">Back to chat</a>
+    </div>
+  </section>
+{% endblock %}

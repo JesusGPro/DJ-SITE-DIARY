@@ -10,12 +10,12 @@
         {% for record in records %}
         <tr>
             <td>
-                {% if request.user.is_superuser %}
+                {% if request.user.is_staff %}
                 <label class="checkbox">
                     <input type="checkbox" name="record_keys" value="{{ record.id }}"/>
                 </label>
                 {% endif %}
-                <a href="{% url 'edit_record' record.id %}">
+                <a href="{% if request.user.is_staff %}{% url 'edit_record' record.id %}{% else %}#{% endif %}">
                     Id: {{ record.id }} , 
                     Title: {{ record.title }} , 
                     {% if record.content %} Content: {{ record.content }} {% endif %} , 
@@ -26,7 +26,7 @@
         {% endfor %}
         </table>
 
-        {% if request.user.is_superuser %}
+        {% if request.user.is_staff %}
         <div class="field is-grouped">
             <div class="control">
             <button class="button is-danger is-small" formaction="{% url 'delete_records' %}">Delete</button>

@@ -1,9 +1,12 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>My Work Site Records - {% block title %}{% endblock %}</title>
+    <link rel="shortcut icon" href="{% static 'app/media/favicon.ico' %}">
+    <!--<link rel="icon" href="{% static 'app/media/favicon.png' %}" type="image/png">-->
+    <title>Site Records - {% block title %}{% endblock %}</title>
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.min.js"></script>
@@ -17,22 +20,45 @@
         top: 0;
         left: 0;
     }
+    favicon {
+      opacity: 0.5;
+    }
+    .logo {
+      margin: 0 10px; /* add some margin to separate from the navbar edges */
+      border-radius: 5px; /* add a slight rounded corner effect */
+      object-fit: contain; /* ensure the image is scaled to fit within the container */
+    }
+    
+    .navbar-brand {
+      padding: 0; /* remove default padding */
+    }
+    
+    .navbar-brand a {
+      display: flex; /* make the link a flex container */
+      align-items: center; /* center the logo vertically */
+    }
+    
     </style>
   </head>
   <body>
     <header>
       <nav class="navbar" aria-label="main navigation">
         <div class="navbar-brand">
+          <a class="navbar-item" href="https://www.albawani.net/">
+            <img src="{% static 'app/media/AlBawani.jpg' %}" alt="AlBawani Logo" class="logo">
+          </a>
           <span class="navbar-item">
-            <a class="button is-dark" href="{% url 'home' %}">Home</a>
+            <a class="button is-dark" id ="home_menu" href="{% url 'home' %}">Home</a>
           </span>
+          {% if request.user.is_authenticated %}
           <span class="navbar-item">
             <a class="button is-success" href="{% url 'records_list' %}">Record List</a>
           </span>
-          
+          {% if request.user.is_staff %}
           <span class="navbar-item">
             <a class="button is-primary" href="{% url 'add_record' %}">Add Record</a>
           </span>
+          {% endif %}
           <span class="navbar-item">
             <a class="button is-success" href="{% url 'search_records' %}">3 words Search</a>
           </span>
@@ -45,8 +71,18 @@
           <span class="navbar-item">
             <a class="button is-info" href="{% url 'chat_view' %}">Chat</a>
           </span>
+          {% endif %}
           <span class="navbar-item">
         </div>
+        <span class="navbar-item">
+          {% if not request.user.is_authenticated %}
+            <a class="button is-link" id = 'login_menu' href="{% url 'login_request' %}">Log in</a>
+          {% else %}
+            {{ request.user.username }}
+            <a class="button is-link" id = 'login_menu' href="{% url 'logout_request' %}">Log out</a>
+          {% endif %}
+        </span>
+        {% if request.user.is_authenticated %}
         <div class="field has-addons" style="padding-top: 8px;">
           <div class="control">
             <form method="post" action="{% url 'search_chat' %}">
@@ -55,12 +91,12 @@
           </div>
           <div class="control">
                 <button class="button is-info" type="submit" >Search in Chat</button>
-          </div>  
+          </div>
             </form>
+            {% endif %}
         </div>
       </nav>
     </header>
-
     <main>
       {% if not request.chat_page %}
         {% for message in messages %}
@@ -77,5 +113,34 @@
     <footer class='footer'>
       <small>&copy; 2024, Jesus Maria Garcia Pro</small>
     </footer>
+    <script>
+      const loginBtn = document.getElementById('login_menu');
+  
+      loginBtn.addEventListener('mouseover', () => {
+        loginBtn.style.backgroundColor = '#b72ed9';
+        loginBtn.style.borderColor = '#2e6da4';
+        loginBtn.style.color = '#ffffff';
+      });
+  
+      loginBtn.addEventListener('mouseout', () => {
+        loginBtn.style.backgroundColor = ''; // reset to original color
+        loginBtn.style.borderColor = ''; // reset to original color
+        loginBtn.style.color = ''; // reset to original color
+      });
+
+      const homeBtn = document.getElementById('home_menu');
+  
+      homeBtn.addEventListener('mouseover', () => {
+        homeBtn.style.backgroundColor = '#908d91';
+        homeBtn.style.borderColor = '#2e6da4';
+        homeBtn.style.color = '#050505';
+      });
+  
+      homeBtn.addEventListener('mouseout', () => {
+        homeBtn.style.backgroundColor = ''; // reset to original color
+        homeBtn.style.borderColor = ''; // reset to original color
+        homeBtn.style.color = ''; // reset to original color
+      });
+    </script>
   </body>
 </html>

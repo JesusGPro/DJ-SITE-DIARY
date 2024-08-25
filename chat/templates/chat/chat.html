@@ -1,5 +1,6 @@
 {% extends 'app/base.html' %}
 {% load static %}
+{% load split_filter %}
 {% load widget_tweaks %}
 
 {% block content %}
@@ -9,30 +10,45 @@
         background-size: cover;
         background-repeat: no-repeat;
         }
+
     </style>
-  <section class="section">
-    <div class="container">
-      <h1 class="title">Chat</h1>
-      <form method="post" id="chat-form">
-        {% csrf_token %}
-        <div class="field">
-          <div class="control">
-            {{ form.message|add_class:"input"|attr:"placeholder:Type your message" }}
-          </div>
-        </div>
-        <button type="submit" class="button is-primary">Send</button>
-      </form>
-      <ul class="chat-log" id="chat-log" style="list-style: none;">
-        {% for message in messages %}
-          <li class="chat-message {% if forloop.counter0|divisibleby:2 %}even{% else %}odd{% endif %}">
-            <span class="username">{{ message.user.username }}</span>
-            <span class="message">{{ message.message }}</span>
-          </li>
-        {% empty %}
-          <li class="chat-message">No messages yet.</li>
-        {% endfor %}
-      </ul>
-    </div>
+    <section class="section">
+      <div class="container">
+          <h1 class="title">Chat</h1>
+          <form method="post" id="chat-form" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="field">
+                  <div class="control">
+                      <textarea id="chat-input" name="message" class="input" placeholder="Type your message"></textarea>
+                  </div>
+              </div>
+              <div class="field">
+                  <div class="control">
+                      <input type="file" name="image" id="image-input">
+                  </div>
+              </div>
+              <button type="submit" class="button is-primary">Send</button>
+          </form>
+          <ul class="chat-log" id="chat-log" style="list-style: none;">
+              {% for message in messages %}
+                  <li class="chat-message {% if forloop.counter0|divisibleby:2 %}even{% else %}odd{% endif %}">
+                    <div class="level">
+                      <div class="level-left">
+                        <span class="username">{{ message.user.username }}</span>
+                        <span class="message">{{ message.message }}</span>
+                        {% if message.image %}
+                            <img src="{{ message.image.url }}" alt="file uploaded">
+                        {% endif %}
+                      </div>
+                      <div class="level-right">
+                        <span class="is-size-7 column has-text-weight-bold">{{ message.created_at|time:"H:i"}} -- {{ message.created_at|date:"d M Y"}}
+                      </div>
+                  </li>
+                  {% empty %}
+                      <li class="chat-message">No messages yet.</li>
+              {% endfor %}
+          </ul>
+      </div>
   </section>
 
   <script>
@@ -40,7 +56,7 @@
       window.location.reload();
     }
   
-    setInterval(refreshChatLog, 60000); // Refresh every 20 seconds
+    setInterval(refreshChatLog, 120000); 
   </script>
 
   <style>
@@ -61,6 +77,12 @@
 
     .chat-message.odd {
       background-color: #c6efce; /* very light green */
+    }
+    .chat-message img {
+      max-width: 400px;
+      max-height: 400px;
+      display: block;
+      margin: 10px auto;
     }
 
     .username {

@@ -11,5 +11,7 @@ urlpatterns = [
     path('search_results/', views.search_records, name='search_results'),
     path('export_to_excel/', views.export_to_excel, name='export_to_excel'),
     path('boreholes', views.boreholes, name='boreholes'),  # list view
+    path('login/', views.login_request, name='login_request'),
+    path('logout/', views.logout_request, name='logout_request'),
     
 ]
