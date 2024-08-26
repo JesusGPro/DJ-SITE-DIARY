@@ -10,4 +10,24 @@
       <a href="{% url 'chat_view' %}" class="button is-primary">Back to chat</a>
     </div>
   </section>
+  <style>
+    /* Add some mobile-friendly styles */
+    @media (max-width: 768px) {
+      .container {
+        padding: 10px;
+        margin: 10px;
+      }
+      .notification {
+        padding: 10px;
+        font-size: 14px;
+      }
+      .title {
+        font-size: 18px;
+      }
+      .button {
+        font-size: 14px;
+        padding: 5px 10px;
+      }
+    }
+  </style>
 {% endblock %}

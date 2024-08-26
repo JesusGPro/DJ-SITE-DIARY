@@ -10,7 +10,38 @@
         background-size: cover;
         background-repeat: no-repeat;
         }
-
+        /* Add some mobile-friendly styles */
+        @media (max-width: 768px) {
+          .container {
+            padding: 10px;
+            margin: 10px;
+          }
+          .chat-log {
+            font-size: 14px;
+          }
+          .chat-message {
+            padding: 5px;
+          }
+          .username {
+            font-size: 16px;
+          }
+          .message {
+            font-size: 14px;
+          }
+          .level {
+            flex-direction: column;
+          }
+          .level-left {
+            margin-bottom: 10px;
+          }
+          .level-right {
+            font-size: 12px;
+          }
+          img {
+            max-width: 200px;
+            max-height: 200px;
+          }
+        }
     </style>
     <section class="section">
       <div class="container">

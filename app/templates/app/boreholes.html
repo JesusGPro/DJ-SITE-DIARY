@@ -17,6 +17,20 @@
     .go_home{
         font-size: 80px;
     }
+    /* Add some mobile-friendly styles */
+    @media (max-width: 768px) {
+      #map {
+        width: 100%;
+        height: auto;
+      }
+      #canvas-container {
+        width: 100%;
+        height: auto;
+      }
+      .go_home {
+        font-size: 24px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -27,7 +41,7 @@
         <div id="canvas-container"></div>
         </div>
       </div>
-      <a href="{% url 'home' %}" class="go_home">Click here to get Home #############################################################################################  Home==>></a>
+      <a href="{% url 'home' %}" class="go_home">Click here to get Home ################  Home==>></a>
       {% comment %} <button class="button is-large is-primary is-fullwidth" onclick="location.href='{% url 'home' %}'">
         <span class="icon is-large">
           <i class="fas fa-home"></i>

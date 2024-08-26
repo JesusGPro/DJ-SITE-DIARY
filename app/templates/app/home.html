@@ -7,6 +7,16 @@
     background-size: cover;
     background-repeat: no-repeat;
     }
+    /* Add some mobile-friendly styles */
+    @media (max-width: 768px) {
+      body {
+        background-image: none;
+        background-color: #f7f7f7;
+      }
+      #mySiteDiary {
+        font-size: 24px;
+      }
+    }
 </style>
 <h1 style="color: #d64161;" id="mySiteDiary">My Site Diary</h1>
 <p>Have a nice {{ day }}!</p>

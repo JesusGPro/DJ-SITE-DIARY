@@ -19,12 +19,23 @@
       </div>      
       <button class="button is-success" type="submit">Create</button>
     </form>
-    {% comment %} <div class="field is-grouped">
-      <div class="control">
-        <br>
-        <a class="button is-primary is-outlined is-small"
-           href="{{ request.path }}/edit">Edit</a>
-      </div>
-    </div> {% endcomment %}
+    <style>
+      /* Add some mobile-friendly styles */
+      @media (max-width: 768px) {
+        .field {
+          margin-bottom: 1rem;
+        }
+        .label {
+          font-size: 16px;
+        }
+        .input, .textarea {
+          font-size: 16px;
+        }
+        .button {
+          font-size: 16px;
+          padding: 0.5rem 1rem;
+        }
+      }
+    </style>
 
 {% endblock %}
